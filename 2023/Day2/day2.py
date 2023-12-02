@@ -24,6 +24,7 @@ def parse(game):
 
 i = 1
 output_sum = 0
+power_sum = 0
 for line in lines:
     games = line.split(';')
     draws = []
@@ -43,13 +44,21 @@ for line in lines:
 
     print(max_balls)
 
+    # Caculate power of cube set
+    power = 1
+    for val in list(max_balls.values()):
+        power *= val
+    power_sum += power
+
     # Check for 12 red cubes, 13 green cubes, and 14 blue
     if (max_balls['red'] <= 12) and (max_balls['green'] <= 13) and (max_balls['blue'] <= 14):
         output_sum += i
     
     i += 1
 
-    print(f"Sum of IDs {output_sum}")
+print(f"Sum of IDs {output_sum}")
+
+print(f"Sum of power of cube sets {power_sum}")
 
 
 
