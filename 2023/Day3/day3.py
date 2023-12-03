@@ -46,18 +46,20 @@ digit_gear_dict = {}
 
 def check_gear(digit_gear_dict,match,j,dig_l, dig_r):
     gear_loc = []
+    # for all 8 adjacent points
     for h, v in adj:
+        # left extreme digit and right extreme digit
         for ind in [dig_l, dig_r]:
             try:
-                # print("Adjacent ch -"+ in_array[j+v][ind+h])
                 if re.findall(r"\*", in_array[j+v][ind+h]):
-                    # print(re.findall(r"\*", in_array[j+v][ind+h]))
                     gear_loc.append(str(j+v) + "_"+ str(ind+h))
             except:
                 pass
+    # Digit_y_x (coordinates) to ensure unique key
     digit_gear_dict[match.group() + "_"+str(j)+ "_" + str(dig_l)] = set(gear_loc)
 
 j= 0
+# Iterate each line then each number found in the line
 for line in in_lines:
     for match in re.finditer(r'\d+', line):
         print("match", match.group(), "start index", match.start(), "End index", match.end())
@@ -68,13 +70,16 @@ for line in in_lines:
             
     j +=1
 
-
+# Initialize empty dict to reverse map the dict
 dict_gear_ratio = {}
 
 for dig, gears in digit_gear_dict.items():
     for gear in gears:
+        # Append to exisiting key
         if gear in dict_gear_ratio.keys():
+            # append numbers in neighbourhood of keys
             dict_gear_ratio[gear].append(dig.split("_")[0])
+        # Make a new key is the * is a new coordinate
         else:
             dict_gear_ratio[gear] = [dig.split("_")[0]]
     pass
