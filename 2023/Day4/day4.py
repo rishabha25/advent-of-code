@@ -33,8 +33,8 @@ print(f"The total sum of card pile scores is: {cu_sum_card_power}")
 
 # Part 2
 # Use Recursion
-# Dict to keep track of numbers of copies
 
+# Dict to keep track of numbers of copies -  207 keys
 dict_count_cards = dict([(i+1, 1) for i in range(len(winning_l))])
 
 def process_card(card):
@@ -44,7 +44,11 @@ def process_card(card):
             card_match += 1
     
     for i in range(card_match):
+        # Increase count of Card X by 1 in the dictionary
+        # If Card 1 had 2 matches counter of Card 2 & 3 increased by 1
+        # Call function again to process copies of Card 2 & 3
         dict_count_cards[card+i+1] = dict_count_cards[card+i+1]+1
+        # Call
         process_card(card+i+1)
 
     return
