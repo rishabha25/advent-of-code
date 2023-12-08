@@ -6,7 +6,7 @@ import numpy as np
 with open("2023/Day7/input.txt") as file:
     lines = file.readlines()
 
-val_map = {'2':'02' , '3':'03', '4':'04', '5':'05', 
+val_map_1 = {'2':'02' , '3':'03', '4':'04', '5':'05', 
                '6':'06', '7':'07', '8':'08', '9':'09', 'T':'10', 
                'J':'11', 'Q':'12', 'K':'13', 'A':'14'}
 
@@ -39,11 +39,11 @@ def check_card_type(card_dict):
         print('None')
     return card_dict
 
-def parser(check_card_type):
+def parser(check_card_type, val_map):
     hand_strength = []
     bids = []
 
-    for line in lines[0:4]:
+    for line in lines:
         print((line.split()[0]))
         temp_dict = Counter(line.split()[0])
         temp_dict = check_card_type(temp_dict)
@@ -77,13 +77,13 @@ def parser(check_card_type):
     print(f"Cumulative Sum is {cu_sum}")
     return cu_sum
 
-print(f"Part 1 answer {parser(check_card_type)} \n\n")
+print(f"Part 1 answer {parser(check_card_type, val_map_1)} \n\n")
 
 
 
 # Part 2
 
-val_map = {'2':'02' , '3':'03', '4':'04', '5':'05', 
+val_map_2 = {'2':'02' , '3':'03', '4':'04', '5':'05', 
                '6':'06', '7':'07', '8':'08', '9':'09', 'T':'10', 
                'J':'01', 'Q':'12', 'K':'13', 'A':'14'}
 
@@ -91,7 +91,7 @@ def check_card_type_2(card_dict):
     
     card_sets = sorted(list(card_dict.values()),  reverse=True)
 
-    if card_dict.get('J', 0) & (card_dict.get('J', 0) != 5) :
+    if card_dict.get('J', 0) and (card_dict.get('J', 0) != 5) :
         count_j = card_dict['J']
         del card_dict['J']
         card_sets.remove(count_j)
@@ -122,4 +122,4 @@ def check_card_type_2(card_dict):
         print('None')
     return card_dict
 
-print(f"Part 2 answer {parser(check_card_type_2)}")
+print(f"Part 2 answer {parser(check_card_type_2, val_map_2  )}")
